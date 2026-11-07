@@ -1,46 +1,63 @@
-# AI CP Disaster
+# AI CP Disaster – AI Disaster Social Response Analyzer
 
-Disaster image analysis, news verification, and emergency-response prototype.
+An AI-powered disaster analysis and emergency-response prototype.
 
-## Run locally
+## Project Overview
 
-Requirements: Python 3.10 or 3.11, MongoDB running at `127.0.0.1:27017`, and the model files in this repository.
+This project analyzes disaster-related images and news reports, verifies information, identifies locations, and generates emergency resource recommendations for verified reports.
 
-From the project root in PowerShell:
+## Run Locally
+
+### Requirements
+- Python 3.11
+- MongoDB running at `127.0.0.1:27017`
+- Project virtual environment (`.venv311`)
+- Required AI model files
+
+### Terminal 1 — Backend
+
+From the project folder, open PowerShell:
 
 ```powershell
-Copy-Item .env.example .env
-# Edit .env and set ADMIN_USERNAME, ADMIN_EMAIL, and a strong ADMIN_PASSWORD.
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn backend.main:app --reload
+Set-Location "YOUR_PROJECT_FOLDER"
+.\.venv311\Scripts\python.exe -m uvicorn backend.main:app --reload
 ```
 
-In a second PowerShell window:
+Backend: `http://127.0.0.1:8000`
+
+API documentation: `http://127.0.0.1:8000/docs`
+
+### Terminal 2 — Frontend
+
+Open a second PowerShell window:
 
 ```powershell
-cd frontend
-python -m http.server 5500
+Set-Location "YOUR_PROJECT_FOLDER"
+py -3.11 -m http.server 5501 --directory frontend
 ```
 
-Open `http://127.0.0.1:5500/splash.html`. API docs: `http://127.0.0.1:8000/docs`.
+### Open the application
 
-## Resource requests and batch analytics
+`http://127.0.0.1:5501/splash.html`
 
-The resource form saves request details to MongoDB. The admin dashboard lists those requests and exports them as CSV for Excel. The form does not email or otherwise send the request to an external recipient.
+Replace `YOUR_PROJECT_FOLDER` with the path where you extracted the project.
 
-The final admin section, **Big Data Batch Analytics**, runs MongoDB aggregation pipelines over saved disaster analyses and resource requests. It summarizes reports by disaster and location and resource needs by disaster, location, and resource type. This is a local batch-processing prototype over records already in the application's database.
+## Resource Requests and Batch Analytics
 
-This prototype does not collect social-media streams, use HDFS, Hadoop/MapReduce, Kafka, or Spark, or forecast future risk. Its current data volume is limited to the records saved in MongoDB; it demonstrates the aggregation workflow, not a production Big Data deployment.
+The resource form saves request details to MongoDB. The admin dashboard lists those requests and exports them as CSV for Excel.
 
-## Current technology coverage
+The Big Data Batch Analytics section uses MongoDB aggregation pipelines to summarize saved disaster analyses and resource requests by disaster, location, and resource type.
 
-- Frontend: HTML5, CSS, and JavaScript.
-- Backend: Python and FastAPI REST APIs.
-- Disaster image classification: TensorFlow/Keras model.
-- News evidence and location extraction: Google News RSS and NLP model integrations.
-- Database: MongoDB for users, analysis history, and resource requests.
-- Batch analytics prototype: MongoDB aggregation pipelines surfaced in the admin dashboard.
-- Location display: Google Maps search links; no Google Maps API key or real-time tracking is configured.
+This is a local batch-processing prototype. It does not collect social-media streams or use HDFS, Hadoop/MapReduce, Kafka, or Spark, and it does not forecast future risk.
 
-Flutter Web, Tailwind/Bootstrap, social-media/government feed ingestion, Hadoop/HDFS, MapReduce, Kafka, Spark, a trained text-aid classifier, and predictive risk analysis are not implemented in this repository and require separate infrastructure, datasets, or credentials.
+## Technology Stack
+
+- Frontend: HTML5, CSS, JavaScript
+- Backend: Python, FastAPI
+- Disaster image classification: TensorFlow/Keras
+- News evidence and location extraction: Google News RSS and NLP integrations
+- Database: MongoDB
+- Batch analytics: MongoDB aggregation pipelines
+- Location display: Google Maps search links
+
+Flutter Web, Hadoop/HDFS, MapReduce, Kafka, Spark, and predictive risk analysis are not implemented in this repository.
