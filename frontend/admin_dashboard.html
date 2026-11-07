@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+Admin Dashboard | AI CP Disaster
+</title>
+
+<link
+    rel="stylesheet"
+    href="css/admin_dashboard.css?v=3"
+>
+
+</head>
+
+
+<body>
+
+<header>
+
+<div class="brand">
+
+🚨 RESQUE-MIND 
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+
+<div>
+
+<span id="welcome"></span>
+
+<button id="logout">
+Logout
+</button>
+
+</div>
+
+</header>
+
+
+
+<main class="dashboard">
+
+
+<div class="hero">
+
+<div>
+
+<h1>
+Admin Dashboard
+</h1>
+
+<p>
+Manage registered users, news analysis, and saved resource requests.
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================================================
+     STATISTICS
+========================================================= -->
+
+<section class="stats">
+
+
+<div class="stat">
+
+<span>
+Total Users
+</span>
+
+<strong id="totalUsers">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Users
+</span>
+
+<strong id="normalUsers">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Admins
+</span>
+
+<strong id="adminUsers">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+News Analyses
+</span>
+
+<strong id="totalAnalysis">
+0
+</strong>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     REGISTERED USERS
+========================================================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<h2>
+Registered Users
+</h2>
+
+<button onclick="loadUsers()">
+Refresh
+</button>
+
+</div>
+
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Username
+</th>
+
+<th>
+Email
+</th>
+
+<th>
+Role
+</th>
+
+<th>
+Created
+</th>
+
+<th>
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="userRows">
+
+<tr>
+
+<td
+    colspan="5"
+    style="text-align:center;"
+>
+Loading users...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCE REQUESTS
+========================================================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<div>
+
+<h2>
+Resource Requests
+</h2>
+
+<p
+    style="
+        margin:5px 0 0;
+        color:#6b7280;
+        font-size:14px;
+    "
+>
+Requests saved in MongoDB. Download CSV to open the records in Excel.
+</p>
+
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button onclick="loadResourceRequests()">Refresh Requests</button>
+<button class="primary" onclick="exportResourceRequestsCsv()">Download CSV</button>
+</div>
+
+</div>
+
+<div id="resourceRequestTotal" style="margin:0 0 12px;color:#4b5563">Loading resource requests...</div>
+
+<div class="table-wrap">
+
+<table class="resource-request-table">
+
+<thead>
+<tr>
+<th>Disaster</th>
+<th>Location</th>
+<th>Requester</th>
+<th>Resource</th>
+<th>Details</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Status</th>
+<th>Created</th>
+<th>Request ID</th>
+</tr>
+</thead>
+
+<tbody id="resourceRequestRows">
+<tr><td colspan="10" style="text-align:center;">Loading resource requests...</td></tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NEWS ANALYSIS HISTORY
+========================================================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<div>
+
+<h2>
+News Analysis History
+</h2>
+
+<p
+    style="
+        margin:5px 0 0;
+        color:#6b7280;
+        font-size:14px;
+    "
+>
+All news analysis records saved in MongoDB
+</p>
+
+</div>
+
+
+<button onclick="loadAnalysis()">
+Refresh Analysis
+</button>
+
+</div>
+
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Email
+</th>
+
+<th>
+Headline
+</th>
+
+<th>
+Image
+</th>
+
+<th>
+Disaster
+</th>
+
+<th>
+Confidence
+</th>
+
+<th>
+Location
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Verification
+</th>
+
+<th>
+Created
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="analysisRows">
+
+<tr>
+
+<td
+    colspan="9"
+    style="text-align:center;"
+>
+Loading analysis data...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BIG-DATA BATCH ANALYTICS PROTOTYPE
+========================================================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<div>
+<h2>Big Data Batch Analytics</h2>
+<p style="margin:5px 0 0;color:#6b7280;font-size:14px">
+Local prototype: MongoDB aggregates saved analyses and resource requests. Hadoop/HDFS/Spark are not configured.
+</p>
+</div>
+
+<button onclick="loadBigDataAnalytics()">Run Batch Analysis</button>
+
+</div>
+
+<div class="analytics-summary">
+    <div class="analytics-stat">
+        <span>Records processed</span>
+        <strong id="bigDataProcessed">-</strong>
+    </div>
+    <div class="analytics-stat">
+        <span>Disaster analyses</span>
+        <strong id="bigDataAnalysisCount">-</strong>
+    </div>
+    <div class="analytics-stat">
+        <span>Resource requests</span>
+        <strong id="bigDataResourceCount">-</strong>
+    </div>
+</div>
+
+<div id="bigDataNotice" class="analytics-notice" role="status">
+Loading batch analytics...
+</div>
+
+<div class="analytics-grid">
+    <div>
+        <h3>Reports by disaster type</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Disaster</th><th>Report count</th></tr></thead>
+                <tbody id="bigDataDisasterRows"><tr><td colspan="2">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <h3>Reports by location</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Location</th><th>Report count</th></tr></thead>
+                <tbody id="bigDataLocationRows"><tr><td colspan="2">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<h3 class="analytics-resource-heading">Resource needs by disaster and location</h3>
+<div class="table-wrap">
+    <table class="resource-request-table">
+        <thead>
+            <tr>
+                <th>Disaster</th>
+                <th>Location</th>
+                <th>Resource type</th>
+                <th>Request count</th>
+            </tr>
+        </thead>
+        <tbody id="bigDataResourceRows"><tr><td colspan="4">Loading...</td></tr></tbody>
+    </table>
+</div>
+
+</section>
+
+
+
+</main>
+
+
+
+<!-- =========================================================
+     EDIT USER MODAL
+========================================================= -->
+
+<div
+    id="editModal"
+    class="modal hidden"
+>
+
+<div class="modal-box">
+
+<h2>
+Edit User
+</h2>
+
+
+<input
+    type="hidden"
+    id="editId"
+>
+
+
+<label>
+Username
+</label>
+
+<input
+    id="editUsername"
+>
+
+
+<label>
+Email
+</label>
+
+<input
+    id="editEmail"
+>
+
+
+<label>
+Role
+</label>
+
+<select id="editRole">
+
+<option value="user">
+User
+</option>
+
+<option value="admin">
+Admin
+</option>
+
+</select>
+
+
+<label>
+New Password
+</label>
+
+<input
+    id="editPassword"
+    type="password"
+    placeholder="Leave blank to keep current"
+>
+
+
+<div class="modal-actions">
+
+<button onclick="closeModal()">
+Cancel
+</button>
+
+<button
+    class="primary"
+    onclick="saveEdit()"
+>
+Save Changes
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="js/admin.js?v=4"></script>
+
+</body>
+
+</html>

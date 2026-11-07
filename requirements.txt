@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+motor
+pymongo
+python-dotenv
+pydantic[email]
+passlib[bcrypt]
+bcrypt==4.0.1
+python-multipart
+numpy
+Pillow
+tensorflow>=2.12,<2.18
+transformers>=4.36,<5
+torch
+requests

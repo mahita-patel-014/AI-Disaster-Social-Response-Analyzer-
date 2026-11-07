@@ -1,0 +1,6 @@
+cyclone
+drought
+earthquake
+fire
+flood
+landslide

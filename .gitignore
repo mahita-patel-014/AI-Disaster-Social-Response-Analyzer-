@@ -1,0 +1,29 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+.venv*/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Python testing and cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+*.log
+
+# Local databases
+*.db
+*.sqlite3
+
+# Android build files
+android-sms-gateway/.gradle/
+android-sms-gateway/build/
+android-sms-gateway/local.properties

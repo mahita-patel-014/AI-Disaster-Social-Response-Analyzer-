@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Disaster Detection | AI CP Disaster
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/ai_detection.css"
+    >
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="brand">
+        🚨 AI CP Disaster
+    </div>
+
+
+    <div class="header-right">
+
+        <span id="welcome"></span>
+
+        <button
+            type="button"
+            onclick="window.location.href='user_dashboard.html'"
+        >
+            Dashboard
+        </button>
+
+        <button
+            type="button"
+            id="logout"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div>
+
+            <span class="eyebrow">
+                AI / ML DISASTER NEWS ANALYSIS
+            </span>
+
+            <h1>
+                AI Disaster News Detection
+            </h1>
+
+            <p>
+                Upload a disaster-news screenshot and enter
+                its headline. The system analyzes the image,
+                detects the disaster type, and checks current
+                news evidence to determine whether the news
+                is real, fake, or unverified.
+            </p>
+
+        </div>
+
+        <div class="hero-badge">
+            AI MODEL
+        </div>
+
+    </section>
+
+
+
+    <section class="analysis-layout">
+
+
+        <!-- =================================================
+             LEFT : INPUT
+        ================================================== -->
+
+        <div class="upload-card">
+
+
+            <h2>
+                News Evidence
+            </h2>
+
+
+            <p>
+                Upload the news screenshot and enter the
+                exact headline shown in the news.
+            </p>
+
+
+
+            <!-- =================================================
+                 IMAGE UPLOAD
+            ================================================== -->
+
+            <label class="field-label">
+                News Screenshot
+            </label>
+
+
+            <div
+                id="dropZone"
+                class="drop-zone"
+            >
+
+                <input
+                    type="file"
+                    id="newsImage"
+                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/bmp"
+                    hidden
+                >
+
+
+                <div
+                    id="uploadContent"
+                    class="upload-content"
+                >
+
+                    <div class="upload-icon">
+                        📷
+                    </div>
+
+
+                    <h3>
+                        Drag & Drop News Screenshot
+                    </h3>
+
+
+                    <p>
+                        or
+                    </p>
+
+
+                    <button
+                        type="button"
+                        id="chooseImage"
+                    >
+                        Choose Image
+                    </button>
+
+
+                    <small>
+                        JPG, JPEG, PNG, WEBP, GIF or BMP
+                    </small>
+
+                </div>
+
+
+                <img
+                    id="preview"
+                    class="preview hidden"
+                    alt="Uploaded news screenshot"
+                >
+
+            </div>
+
+<!-- ============================================================
+     NEWS HEADLINE
+============================================================= -->
+
+<div class="headline-section">
+
+    <div class="headline-header">
+
+        <label
+            for="headline"
+            class="headline-title"
+        >
+            News Headline
+        </label>
+
+        <span
+            id="headlineCount"
+            class="headline-count"
+        >
+            0 / 500
+        </span>
+
+    </div>
+
+
+    <textarea
+        id="headline"
+        name="headline"
+        maxlength="500"
+        class="headline-input"
+        placeholder="Enter the exact headline of the news here..."
+    ></textarea>
+
+
+    <p class="headline-help">
+        Enter the headline exactly as shown in the uploaded
+        news screenshot. The AI uses this information to
+        verify the news and identify the disaster location.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     GENERATE RESPONSE
+====================================================== -->
+
+<div
+    id="generateResponseBox"
+    class="generate-response-box hidden"
+>
+
+    <div class="generate-response-content">
+
+        <span class="generate-response-label">
+            REAL DISASTER NEWS
+        </span>
+
+        <h3>
+            Emergency Response Available
+        </h3>
+
+        <p>
+            The news has been verified as REAL.
+            Generate an emergency response according
+            to the detected disaster and location.
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="generateResponseBtn"
+        class="generate-response-btn"
+    >
+        🚨 Generate Response
+    </button>
+
+</div>
+        
+
+
+                
+
+
+
+
+
+            <!-- =================================================
+                 ANALYZE BUTTON
+            ================================================== -->
+
+            <button
+                type="button"
+                id="analyzeBtn"
+                class="analyze-btn"
+            >
+                🔍 Analyze News
+            </button>
+
+
+
+            <!-- =================================================
+                 LOADING
+            ================================================== -->
+
+            <div
+                id="loading"
+                class="loading hidden"
+            >
+
+                <div class="spinner"></div>
+
+                <span>
+                    Analyzing image, disaster type and
+                    checking current news sources...
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MESSAGE
+            ================================================== -->
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT : RESULT
+        ================================================== -->
+
+        <div class="result-card">
+
+
+            <h2>
+                Verification Result
+            </h2>
+
+
+            <p>
+                AI analysis and current news evidence.
+            </p>
+
+
+
+            <!-- =================================================
+                 EMPTY
+            ================================================== -->
+
+            <div
+                id="emptyResult"
+                class="empty-result"
+            >
+
+                <div class="empty-icon">
+                    🛡️
+                </div>
+
+
+                <h3>
+                    Waiting for Analysis
+                </h3>
+
+
+                <p>
+                    Upload a news screenshot and enter
+                    the headline to begin.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESULT
+            ================================================== -->
+
+            <div
+                id="result"
+                class="result hidden"
+            >
+
+
+                <!-- NEWS STATUS -->
+
+                <div
+                    id="newsStatusBadge"
+                    class="status-badge"
+                >
+                    UNVERIFIED
+                </div>
+
+
+                <h1 id="newsStatus">
+                    UNVERIFIED
+                </h1>
+
+
+
+                <!-- CONFIDENCE -->
+
+                <div class="confidence">
+
+                    <span>
+                        Image Model Confidence
+                    </span>
+
+
+                    <strong id="confidence">
+                        0%
+                    </strong>
+
+                </div>
+
+
+
+                <div class="progress">
+
+                    <div
+                        id="confidenceBar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- RESULT GRID -->
+
+                <div class="result-grid">
+
+
+                    <div class="result-item">
+
+                        <span>
+                            Disaster Type
+                        </span>
+
+
+                        <strong id="disasterType">
+                            -
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="result-item">
+
+                        <span>
+                            Location
+                        </span>
+
+
+                        <strong id="location">
+                            -
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="result-item">
+
+                        <span>
+                            News Status
+                        </span>
+
+
+                        <strong id="newsStatusValue">
+                            -
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="result-item">
+
+                        <span>
+                            Evidence Sources
+                        </span>
+
+
+                        <strong id="sourceCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     VERIFICATION EXPLANATION
+                ================================================== -->
+
+                <div class="verification-box">
+
+                    <h3>
+                        Verification Analysis
+                    </h3>
+
+
+                    <p id="verificationReason">
+                        No analysis available.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SEARCH EVIDENCE
+                ================================================== -->
+
+                <div class="evidence">
+
+                    <h3>
+                        News Evidence
+                    </h3>
+
+
+                    <div
+                        id="evidenceList"
+                    ></div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script src="js/ai_detection.js?v=20261102"></script>
+
+
+<script>
+
+    /*
+     * Headline character counter
+     */
+
+    const headline =
+        document.getElementById("headline");
+
+    const headlineCount =
+        document.getElementById("headlineCount");
+
+
+    if (headline && headlineCount) {
+
+        headline.addEventListener(
+            "input",
+            function () {
+
+                headlineCount.textContent =
+                    this.value.length;
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Existing logged-in user
+     */
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "ai_cp_user"
+            ) || "null"
+        );
+
+
+    if (user) {
+
+        const welcome =
+            document.getElementById(
+                "welcome"
+            );
+
+        if (welcome) {
+
+            welcome.textContent =
+                `Welcome, ${user.username}`;
+
+        }
+
+    }
+
+
+    /*
+     * Logout
+     */
+
+    const logout =
+        document.getElementById(
+            "logout"
+        );
+
+
+    if (logout) {
+
+        logout.addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem(
+                    "ai_cp_user"
+                );
+
+                window.location.href =
+                    "register.html";
+
+            }
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

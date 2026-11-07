@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI CP Disaster - Response</title>
+
+
+    <!-- Existing response stylesheet -->
+
+    <link
+        rel="stylesheet"
+        href="css/response.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           BASIC RESPONSE PAGE
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef6ff,
+                    #ffffff
+                );
+
+            color: #172033;
+        }
+
+
+        .response-page {
+
+            width: 100%;
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .response-header {
+
+            width: 100%;
+
+            padding: 18px 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d47a1,
+                    #1976d2
+                );
+
+            color: white;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.12
+                );
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.18
+                );
+
+            font-size: 24px;
+        }
+
+
+        .brand-text h1 {
+
+            font-size: 21px;
+
+            font-weight: 700;
+        }
+
+
+        .brand-text p {
+
+            margin-top: 2px;
+
+            font-size: 12px;
+
+            opacity: 0.85;
+        }
+
+
+        .header-actions {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .header-btn {
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.35
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            color: white;
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+
+        .header-btn:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.22
+                );
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .response-container {
+
+            width:
+                min(
+                    1400px,
+                    calc(100% - 40px)
+                );
+
+            margin:
+                25px auto 45px;
+        }
+
+
+        .page-title {
+
+            margin-bottom: 20px;
+        }
+
+
+        .page-title h2 {
+
+            font-size: 27px;
+
+            color: #123d78;
+        }
+
+
+        .page-title p {
+
+            margin-top: 6px;
+
+            color: #667085;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
+        .status-banner {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 15px 18px;
+
+            margin-bottom: 20px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            border:
+                1px solid
+                #dbe7f5;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    16,
+                    24,
+                    40,
+                    0.06
+                );
+        }
+
+
+        .status-dot {
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            flex-shrink: 0;
+        }
+
+
+        .status-banner strong {
+
+            color: #123d78;
+        }
+
+
+        /* =====================================================
+           GRID
+           ===================================================== */
+
+        .top-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.25fr)
+                minmax(0, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            border:
+                1px solid
+                #dce8f5;
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.06
+                );
+
+            overflow: hidden;
+        }
+
+
+        .card-header {
+
+            padding: 17px 20px;
+
+            border-bottom:
+                1px solid
+                #edf2f7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .card-header h3 {
+
+            color: #123d78;
+
+            font-size: 17px;
+        }
+
+
+        .card-body {
+
+            padding: 20px;
+        }
+
+
+        /* =====================================================
+           DISASTER SUMMARY
+           ===================================================== */
+
+        .disaster-main {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .disaster-icon {
+
+            width: 65px;
+            height: 65px;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e3f2fd,
+                    #bbdefb
+                );
+
+            font-size: 32px;
+
+            flex-shrink: 0;
+        }
+
+
+        .disaster-label {
+
+            color: #7a8799;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+        }
+
+
+        #disasterType {
+
+            color: #0d47a1;
+
+            font-size: 25px;
+
+            font-weight: 700;
+        }
+
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap: 12px;
+        }
+
+
+        .info-box {
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            background: #f7faff;
+
+            border:
+                1px solid
+                #e4edf7;
+        }
+
+
+        .info-box .label {
+
+            display: block;
+
+            color: #778399;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .info-box .value {
+
+            color: #172033;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           VERIFICATION
+           ===================================================== */
+
+        .verification-status {
+
+            display: inline-flex;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            background: #e8f5e9;
+
+            color: #1b7f35;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           MAP
+           ===================================================== */
+
+        .map-container {
+
+            width: 100%;
+
+            min-height: 300px;
+
+            border-radius: 11px;
+
+            overflow: hidden;
+
+            background: #eef3f8;
+        }
+
+
+        #mapFrame {
+
+            width: 100%;
+
+            height: 300px;
+
+            border: 0;
+
+            display: block;
+        }
+
+
+        .map-link {
+
+            display: inline-flex;
+
+            margin-top: 12px;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            background: #1976d2;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .map-link:hover {
+
+            background: #0d47a1;
+        }
+
+
+        /* =====================================================
+           RESOURCE SECTION
+           ===================================================== */
+
+        .resource-section {
+
+            margin-bottom: 20px;
+        }
+
+
+        .resource-help {
+
+            color: #718096;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+        }
+
+
+        #resourceList {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        250px,
+                        1fr
+                    )
+                );
+
+            gap: 13px;
+        }
+
+
+        /* =====================================================
+           RESOURCE CARD
+           ===================================================== */
+
+        .resource-item {
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7fbff,
+                    #ffffff
+                );
+
+            border:
+                1px solid
+                #d9e7f5;
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                border-color 0.15s ease;
+
+            position: relative;
+        }
+
+
+        .resource-item:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                #1976d2;
+
+            box-shadow:
+                0 7px 18px
+                rgba(
+                    25,
+                    118,
+                    210,
+                    0.12
+                );
+        }
+
+
+        .resource-name {
+
+            color: #123d78;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+            padding-right: 5px;
+        }
+
+
+        .resource-details {
+
+            color: #667085;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           CALL RESOURCE - SINGLE BUTTON AT PAGE END
+           ===================================================== */
+
+        .resource-request-section {
+
+            width: 100%;
+
+            margin-top: 30px;
+
+            margin-bottom: 20px;
+
+            padding: 24px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            background: white;
+
+            border:
+                1px solid
+                #dce8f5;
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.06
+                );
+        }
+
+
+        .resource-request-title {
+
+            color: #123d78;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+
+        .resource-request-text {
+
+            color: #718096;
+
+            font-size: 13px;
+
+            margin-bottom: 17px;
+
+            line-height: 1.5;
+        }
+
+
+        .call-resource-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-width: 220px;
+
+            min-height: 48px;
+
+            padding:
+                0 24px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1976d2,
+                    #0d47a1
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 18px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.25
+                );
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+
+        .call-resource-btn:hover {
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.30
+                );
+        }
+
+
+        .call-resource-btn:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           EVIDENCE
+           ===================================================== */
+
+        #evidenceList {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .evidence-item {
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            background: #f8fafc;
+
+            border:
+                1px solid
+                #e7edf4;
+
+            font-size: 13px;
+        }
+
+
+        .evidence-item a {
+
+            color: #1565c0;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+
+        .evidence-item a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           HEADLINE
+           ===================================================== */
+
+        .headline-box {
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            background: #f7faff;
+
+            border-left:
+                4px solid
+                #1976d2;
+
+            color: #344054;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           IMAGE
+           ===================================================== */
+
+        .result-image-wrapper {
+
+            display: none;
+
+            margin-top: 18px;
+        }
+
+
+        #resultImage {
+
+            width: 100%;
+
+            max-height: 420px;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                #dce6f0;
+
+            background: #f7f9fc;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .response-footer {
+
+            text-align: center;
+
+            color: #8491a5;
+
+            font-size: 12px;
+
+            padding:
+                15px 0 30px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .top-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .response-header {
+
+                padding:
+                    15px 20px;
+            }
+
+
+            .response-container {
+
+                width:
+                    calc(100% - 25px);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .response-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+
+            .header-actions {
+
+                width: 100%;
+            }
+
+
+            .header-btn {
+
+                flex: 1;
+            }
+
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .page-title h2 {
+
+                font-size: 23px;
+            }
+
+
+            #disasterType {
+
+                font-size: 21px;
+            }
+
+
+            .resource-request-section {
+
+                padding: 20px 15px;
+            }
+
+
+            .call-resource-btn {
+
+                width: 100%;
+
+                min-width: 0;
+            }
+
+        }
+
+
+        /* =====================================================
+           PRINT
+           ===================================================== */
+
+        @media print {
+
+            .response-header {
+
+                background: white;
+
+                color: black;
+
+                box-shadow: none;
+            }
+
+
+            .header-actions,
+            .map-link,
+            .resource-request-section {
+
+                display: none;
+            }
+
+
+            body {
+
+                background: white;
+            }
+
+
+            .card {
+
+                box-shadow: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="response-page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="response-header">
+
+
+        <div class="brand">
+
+
+            <div class="brand-icon">
+
+                🚨
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <h1>
+
+                    AI CP Disaster
+
+                </h1>
+
+
+                <p>
+
+                    AI Disaster Response &amp; Verification
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="header-actions">
+
+
+            <button
+                type="button"
+                class="header-btn"
+                data-response-back
+            >
+
+                ← Back
+
+            </button>
+
+
+            <button
+                type="button"
+                class="header-btn"
+                data-print-response
+            >
+
+                🖨 Print
+
+            </button>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="response-container">
+
+
+        <div class="page-title">
+
+            <h2>
+
+                Disaster Analysis Response
+
+            </h2>
+
+
+            <p>
+
+                AI-powered disaster detection,
+                verification and emergency resource management.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATUS
+             ================================================= -->
+
+        <div class="status-banner">
+
+
+            <span class="status-dot"></span>
+
+
+            <div>
+
+                <strong>
+
+                    Analysis Complete
+
+                </strong>
+
+
+                <span>
+
+                    — Disaster information and emergency
+                    response requirements are shown below.
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             TOP GRID
+             ================================================= -->
+
+        <div class="top-grid">
+
+
+
+            <!-- =============================================
+                 DISASTER INFORMATION
+                 ============================================= -->
+
+            <section class="card">
+
+
+                <div class="card-header">
+
+                    <h3>
+
+                        🚨 Disaster Information
+
+                    </h3>
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <div class="disaster-main">
+
+
+                        <div class="disaster-icon">
+
+                            ⚠️
+
+                        </div>
+
+
+                        <div>
+
+
+                            <div class="disaster-label">
+
+                                DETECTED DISASTER
+
+                            </div>
+
+
+                            <div id="disasterType">
+
+                                Unknown Disaster
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="info-grid">
+
+
+
+                        <div class="info-box">
+
+
+                            <span class="label">
+
+                                Location
+
+                            </span>
+
+
+                            <span
+                                class="value"
+                                id="location"
+                            >
+
+                                Location not available
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="info-box">
+
+
+                            <span class="label">
+
+                                Model Confidence
+
+                            </span>
+
+
+                            <span
+                                class="value"
+                                id="confidence"
+                            >
+
+                                N/A
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="info-box">
+
+
+                            <span class="label">
+
+                                Verification Score
+
+                            </span>
+
+
+                            <span
+                                class="value"
+                                id="verificationScore"
+                            >
+
+                                N/A
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div class="info-box">
+
+
+                            <span class="label">
+
+                                Evidence Sources
+
+                            </span>
+
+
+                            <span
+                                class="value"
+                                id="evidenceCount"
+                            >
+
+                                0
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 VERIFICATION
+                 ============================================= -->
+
+            <section class="card">
+
+
+                <div class="card-header">
+
+
+                    <h3>
+
+                        🔎 News Verification
+
+                    </h3>
+
+
+                    <span
+                        class="verification-status"
+                        id="verificationStatus"
+                    >
+
+                        Unverified
+
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <div
+                        class="headline-box"
+                        id="headline"
+                    >
+
+                        No headline available.
+
+                    </div>
+
+
+
+                    <div
+                        class="result-image-wrapper"
+                        id="resultImageWrapper"
+                    >
+
+
+                        <img
+                            id="resultImage"
+                            src=""
+                            alt="Disaster Analysis Image"
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOCATION / MAP
+             ================================================= -->
+
+        <section class="card resource-section">
+
+
+            <div class="card-header">
+
+                <h3>
+
+                    📍 Disaster Location
+
+                </h3>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <div class="map-container">
+
+
+                    <iframe
+                        id="mapFrame"
+                        title="Disaster Location Map"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+
+
+                </div>
+
+
+
+                <a
+                    id="mapLink"
+                    class="map-link"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    📍 Open Location in Google Maps
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             REQUIRED RESOURCES
+             ================================================= -->
+
+        <section class="card resource-section">
+
+
+            <div class="card-header">
+
+                <h3>
+
+                    🆘 Required Emergency Resources
+
+                </h3>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <p class="resource-help">
+
+                    The required emergency resources identified
+                    by the AI analysis are shown below.
+
+                </p>
+
+
+
+                <div id="resourceList">
+
+
+                    <!--
+                        response.js will replace this
+                        with actual resource information.
+
+                        IMPORTANT:
+                        No CALL RESOURCE button is created here.
+                    -->
+
+
+                    <div class="resource-item">
+
+
+                        <div class="resource-name">
+
+                            Waiting for analysis...
+
+                        </div>
+
+
+                        <div class="resource-details">
+
+                            Required resources will appear here.
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EVIDENCE
+             ================================================= -->
+
+        <section class="card resource-section">
+
+
+            <div class="card-header">
+
+                <h3>
+
+                    📰 Evidence &amp; Sources
+
+                </h3>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <div id="evidenceList">
+
+
+                    <div class="evidence-item">
+
+                        No evidence sources available.
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+<!-- =========================================================
+     EMERGENCY RESOURCE REQUEST
+     ========================================================= -->
+
+<section
+    class="resource-request-section"
+    id="resourceRequestSection"
+    style="
+        margin-top:40px;
+        padding:30px;
+        text-align:center;
+        background:#ffffff;
+        border-radius:18px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    "
+>
+
+    <h2
+        style="
+            margin:0 0 10px 0;
+            font-size:22px;
+            font-weight:800;
+            color:#111827;
+        "
+    >
+        📞 Emergency Resource Request
+    </h2>
+
+    <p
+        style="
+            margin:0 auto 20px auto;
+            max-width:650px;
+            color:#64748b;
+            font-size:14px;
+            line-height:1.6;
+        "
+    >
+        If emergency resources are required, click the
+        button below to enter the person's contact details.
+    </p>
+
+    <button
+        type="button"
+        id="callResourceButton"
+        style="
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            min-width:220px;
+            height:50px;
+            padding:0 25px;
+            border:none;
+            border-radius:10px;
+            background:#2563eb;
+            color:#ffffff;
+            font-size:14px;
+            font-weight:800;
+            cursor:pointer;
+            box-shadow:0 8px 20px rgba(37,99,235,0.25);
+        "
+    >
+        📞 CALL RESOURCE
+    </button>
+
+</section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <div class="response-footer">
+
+            AI CP Disaster —
+            AI-powered disaster response system
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     RESOURCE REQUEST JS
+     LOAD ONLY ONCE
+     ========================================================= -->
+
+<script src="js/resource_request.js?v=63"></script>
+
+
+
+<!-- =========================================================
+     RESPONSE JS
+     ========================================================= -->
+
+
+
+
+<!-- =========================================================
+     SMALL MAP FALLBACK
+     ========================================================= -->
+
+<script>
+
+    /*
+     * response.js normally updates the iframe.
+     * This fallback keeps the iframe blank until
+     * a valid location is available.
+     */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const mapFrame =
+                document.getElementById(
+                    "mapFrame"
+                );
+
+
+            if (mapFrame) {
+
+                mapFrame.src =
+                    "about:blank";
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI CP Disaster</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #splashVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .fallback {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #062b78,
+                    #087dc9,
+                    #10b9d7
+                );
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            text-align: center;
+        }
+
+        .fallback h1 {
+            margin-top: 20px;
+            font-size: 28px;
+        }
+
+        .fallback p {
+            margin-top: 10px;
+            opacity: .8;
+        }
+
+        .loader {
+            width: 45px;
+            height: 45px;
+
+            border: 4px solid
+                rgba(255,255,255,.3);
+
+            border-top-color: white;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <video
+        id="splashVideo"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+    >
+
+        <source
+            src="assets/splash - Trim.mp4"
+            type="video/mp4"
+        >
+
+        Your browser does not support video.
+
+    </video>
+
+
+    <div
+        id="fallback"
+        class="fallback"
+    >
+
+        <div class="loader"></div>
+
+        <h1>
+            AI Disaster Response System
+        </h1>
+
+        <p>
+            AI • ML • Real-Time Response
+        </p>
+
+    </div>
+
+
+    <script>
+
+        const video =
+            document.getElementById(
+                "splashVideo"
+            );
+
+
+        const fallback =
+            document.getElementById(
+                "fallback"
+            );
+
+
+        /*
+         * When splash video finishes,
+         * open register page.
+         */
+
+        video.addEventListener(
+            "ended",
+            function () {
+
+                window.location.href =
+                    "register.html";
+
+            }
+        );
+
+
+        /*
+         * If video cannot load,
+         * show fallback for 3 seconds
+         * and then open register page.
+         */
+
+        video.addEventListener(
+            "error",
+            function () {
+
+                video.style.display =
+                    "none";
+
+                fallback.style.display =
+                    "flex";
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "register.html";
+
+                    },
+                    3000
+                );
+
+            }
+        );
+
+
+        /*
+         * Make sure autoplay starts.
+         */
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                video.play().catch(
+                    function () {
+
+                        /*
+                         * If browser blocks
+                         * autoplay, show fallback.
+                         */
+
+                        video.style.display =
+                            "none";
+
+                        fallback.style.display =
+                            "flex";
+
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "register.html";
+
+                            },
+                            3000
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

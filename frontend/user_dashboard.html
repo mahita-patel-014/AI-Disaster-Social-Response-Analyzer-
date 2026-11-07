@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+User Dashboard | AI CP Disaster
+</title>
+
+<link
+    rel="stylesheet"
+    href="css/user_dashboard.css"
+>
+
+</head>
+
+
+<body>
+
+<header>
+
+<div class="brand">
+🚨 RESQUE-MIND 
+</div>
+
+
+<div>
+
+<span id="welcome"></span>
+
+<button id="logout">
+Logout
+</button>
+
+</div>
+
+</header>
+
+
+
+<main class="dashboard">
+
+<div class="hero">
+
+<div>
+
+<h1>
+User Dashboard
+</h1>
+
+<p>
+Welcome to the AI Disaster Response System.
+</p>
+
+</div>
+
+
+<div class="pill">
+USER
+</div>
+
+</div>
+
+
+
+<div class="cards">
+
+
+<!-- ===================================================== -->
+<!-- AI DISASTER DETECTION -->
+<!-- ===================================================== -->
+
+<div class="card">
+
+<h3>
+AI Disaster Detection
+</h3>
+
+<p>
+Upload disaster images and analyze
+disaster type.
+</p>
+
+<button
+    onclick="window.location.href='ai_detection.html'"
+>
+    Open Detection
+</button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- NEWS VERIFICATION -->
+<!-- ===================================================== -->
+
+<div class="card">
+
+<h3>
+News Verification
+</h3>
+
+<p>
+Verify disaster-related news
+and information.
+</p>
+
+<button
+    onclick="window.location.href='news_verification.html'"
+>
+    Verify News
+</button>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- LOCATION TRACKING -->
+<!-- ===================================================== -->
+
+<div class="card">
+
+<h3>
+Location Tracking
+</h3>
+
+<p>
+Track affected locations using
+Google Maps.
+</p>
+
+<button onclick="window.location.href='news_verification.html'">
+Open Map
+</button>
+
+</div>
+
+
+</div>
+
+</main>
+
+
+<script>
+
+
+// =========================================================
+// GET LOGGED-IN USER
+// =========================================================
+
+const user =
+    JSON.parse(
+        localStorage.getItem(
+            "ai_cp_user"
+        ) || "null"
+    );
+
+
+// =========================================================
+// AUTHENTICATION CHECK
+// =========================================================
+
+if (
+    !user ||
+    user.role !== "user"
+) {
+
+    location.href =
+        "register.html";
+
+}
+
+
+// =========================================================
+// DISPLAY USER
+// =========================================================
+
+else {
+
+    document
+        .getElementById(
+            "welcome"
+        )
+        .textContent =
+            `Welcome, ${user.username}`;
+
+}
+
+
+// =========================================================
+// LOGOUT
+// =========================================================
+
+document
+    .getElementById(
+        "logout"
+    )
+    .onclick = () => {
+
+        localStorage.removeItem(
+            "ai_cp_user"
+        );
+
+        location.href =
+            "register.html";
+
+    };
+
+
+</script>
+
+</body>
+
+</html>

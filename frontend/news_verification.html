@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News Verification & Response | AI CP Disaster</title>
+
+    <link rel="stylesheet" href="css/news_verification.css?v=56">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+        🚨 RESQUE-MIND
+    </div>
+
+    <button
+        class="back-btn"
+        onclick="window.location.href='user_dashboard.html'">
+        ← Dashboard
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+
+        <div>
+            <h1>News Verification & Response</h1>
+
+            <p>
+                Emergency response planning for verified disaster news.
+            </p>
+        </div>
+
+        <div class="status-pill">
+            REAL NEWS
+        </div>
+
+    </section>
+
+    <!-- NO NEWS -->
+
+    <section id="noNews" class="message-card hidden">
+
+        <div class="message-icon">
+            ⚠️
+        </div>
+
+        <h2>No Verified Disaster News</h2>
+
+        <p>
+            Analyze a disaster image and headline first.
+            A response can only be generated when the news is verified as REAL.
+        </p>
+
+        <button
+            class="primary-btn"
+            onclick="window.location.href='ai_detection.html'">
+            Go to Disaster Detection
+        </button>
+
+    </section>
+
+
+    <!-- NEWS -->
+
+    <section id="newsSection" class="news-card hidden">
+
+        <div class="news-header">
+
+            <span id="statusBadge" class="real-badge">
+                REAL
+            </span>
+
+            <span id="createdAt" class="date-text"></span>
+
+        </div>
+
+
+        <div class="news-content">
+
+            <div class="image-container">
+
+                <img
+                    id="newsImage"
+                    src=""
+                    alt="Disaster image">
+
+            </div>
+
+
+            <div class="news-details">
+
+                <h2 id="headline">
+                    --
+                </h2>
+
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Disaster Type
+                        </span>
+
+                        <strong id="disasterType">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Location
+                        </span>
+
+                        <div id="googleMapsLocation"></div>
+
+                        <strong id="location">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            AI Confidence
+                        </span>
+
+                        <strong id="confidence">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Verification Confidence
+                        </span>
+
+                        <strong id="verificationConfidence">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Evidence
+                        </span>
+
+                        <strong id="evidenceCount">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            News Status
+                        </span>
+
+                        <strong id="newsStatus">
+                            REAL
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="reason-box">
+
+            <h3>Verification Reason</h3>
+
+            <p id="verificationReason">
+                --
+            </p>
+
+        </div>
+
+
+        <div class="response-control">
+
+            <h2>🚨 Emergency Response</h2>
+
+            <p>
+                Generate an emergency response plan based on the
+                verified disaster type and location.
+            </p>
+
+            <button
+                id="generateResponseBtn"
+                class="generate-btn">
+                🚨 Generate AI Response
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOADING -->
+
+    <section
+        id="responseLoading"
+        class="loading-card hidden">
+
+        <div class="loader"></div>
+
+        <h2>Generating Emergency Response...</h2>
+
+        <p>
+            Preparing medical, rescue, food, shelter, water,
+            transport and security recommendations.
+        </p>
+
+    </section>
+
+
+    <!-- RESPONSE -->
+
+    <section
+        id="responseSection"
+        class="response-section hidden">
+
+        <div class="response-title">
+
+            <h2>
+                🚨 AI Emergency Response Plan
+            </h2>
+
+            <p id="responseSummary">
+                --
+            </p>
+
+        </div>
+
+
+        <!-- SITUATION -->
+
+        <div class="section-card">
+
+            <h3>📊 Situation Assessment</h3>
+
+            <div class="situation-grid">
+
+                <div class="situation-box">
+
+                    <span>
+                        Road Condition
+                    </span>
+
+                    <strong id="roadCondition">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="situation-box">
+
+                    <span>
+                        Water Level
+                    </span>
+
+                    <strong id="waterLevel">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="situation-box">
+
+                    <span>
+                        Electricity
+                    </span>
+
+                    <strong id="electricity">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="situation-box">
+
+                    <span>
+                        Food Requirement
+                    </span>
+
+                    <strong id="foodRequirement">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="situation-box">
+
+                    <span>
+                        Shelter Requirement
+                    </span>
+
+                    <strong id="shelterRequirement">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="situation-box">
+
+                    <span>
+                        Medical Requirement
+                    </span>
+
+                    <strong id="medicalRequirement">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESPONSE CARDS -->
+
+        <div class="response-grid">
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🏥
+                </div>
+
+                <h3>Medical Teams</h3>
+
+                <ul id="medicalList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🚑
+                </div>
+
+                <h3>Rescue Teams</h3>
+
+                <ul id="rescueList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🍱
+                </div>
+
+                <h3>Food</h3>
+
+                <ul id="foodList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🏠
+                </div>
+
+                <h3>Shelter</h3>
+
+                <ul id="shelterList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    💧
+                </div>
+
+                <h3>Water</h3>
+
+                <ul id="waterList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🚛
+                </div>
+
+                <h3>Transport</h3>
+
+                <ul id="transportList"></ul>
+
+            </div>
+
+
+            <div class="response-card">
+
+                <div class="card-icon">
+                    🛡️
+                </div>
+
+                <h3>Security</h3>
+
+                <ul id="securityList"></ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESOURCES -->
+
+        <div class="section-card">
+
+            <h3>📦 Required Resources</h3>
+
+            <div
+                id="resourceList"
+                class="resource-list">
+            </div>
+
+            <button
+                type="button"
+                id="requestAllResourcesButton"
+                class="resource-request-button"
+                hidden
+            >
+                Send Resource Phone Notification
+            </button>
+
+        </div>
+
+
+        
+
+        <!-- NOTICE -->
+
+        <div class="notice-box">
+
+            <strong>⚠️ Important</strong>
+
+            <p id="responseNotice">
+                --
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <div
+        id="responseMessage"
+        class="response-message hidden">
+    </div>
+
+</main>
+
+
+<script src="js/news_verification.js?v=56"></script>
+<script src="js/resource_request.js?v=63"></script>
+
+</body>
+</html>
